@@ -22,13 +22,12 @@ class HomeController extends Controller {
      */
     public function index(Guard $auth) {
         $user = $auth->user();
-        $key = "demo";
         $token = [
             'user_id' => $user->id,
             'user_name' => $user->name,
             'exp' => time() + 60
         ];
-        $token = JWT::encode($token, $key);
+        $token = JWT::encode($token, getenv('JWTSECRET'));
         return view('home', compact('token'));
     }
 }

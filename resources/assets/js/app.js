@@ -4,12 +4,12 @@ import io from 'socket.io-client'
 
 let presence = document.querySelector('#presence')
 
-let addUser = function (user) {
+let addUser = (user) => {
     let li = document.createElement('li')
     li.innerText = user.name
     li.id = 'user' + user.id
     presence.appendChild(li)
-};
+}
 
 if (presence) {
     let socket = io('http://localhost:3000')
@@ -29,6 +29,8 @@ if (presence) {
     })
 
     socket.on('users', ({users}) => {
-
+        for (let k in users) {
+            addUser(users[k])
+        }
     })
 }

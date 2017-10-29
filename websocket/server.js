@@ -19,7 +19,7 @@ io.on('connection', socket => {
 
     socket.on('identify', ({token}) => {
         try {
-            let decoded = jwt.verify(token, 'demo', {
+            let decoded = jwt.verify(token, processed.env.JWTSECRET, {
                 algorithms: ['HS256']
             })
 
